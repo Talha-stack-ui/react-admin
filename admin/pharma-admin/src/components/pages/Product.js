@@ -15,6 +15,11 @@ const LoadProducts = async () =>{
    console.log(setProduct);
 }
 
+const delFunc = async(id) =>{
+  await axios.delete(`http://localhost:800/product/delete/${id}`);
+  LoadProducts();
+}
+
 
     return (
         <div className="App">
@@ -28,20 +33,22 @@ const LoadProducts = async () =>{
       <th scope="col">Image</th>
       <th scope="col">Title</th>
       <th scope="col">Description</th>
+      <th scope="col">Price</th>
       <th scope="col">Action</th>
     </tr>
   </thead>
   <tbody>
    {products.map((product,index)=>(
        <tr key={product._id}>
-           <th scope="row">{index+1}</th>
+           <th scope="row">{index + 1}</th>
            <td>{product.name}</td>
            <td><img src={`http://localhost:800/uploads/${product.image}`} alt="img" width="120px" height="120px"/></td>
            <td>{product.title}</td>
            <td>{product.description}</td>
+           <td>{product.price}</td>
            <td>         
-           <Link className="btn btn-outline-info btn-sm ">Edit</Link>
-           <Link className="btn btn-outline-danger btn-sm mx-3" onClick={()=>{console.log(`Deleted : ${product._id}`)}}>Delete</Link>
+           <Link className="btn btn-outline-info btn-sm" to={`/products/edit/${product._id}`}>Edit</Link>
+           <button className="btn btn-outline-danger btn-sm mx-3" onClick={()=>delFunc(product._id)}>Delete</button>
           </td>
        </tr>
     ))}

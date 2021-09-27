@@ -104,7 +104,8 @@ app.post('/productAdd',upload.single('image'),async(req,res)=>{
         name : req.body.name,
         image : req.file.filename,
         description : req.body.description,
-        title : req.body.title
+        title : req.body.title,
+        price : req.body.price
     })
     try{
     await product.save().then(console.log("Product added successfully")).then(res.send(product))
@@ -131,7 +132,7 @@ app.get('/product/:id',async(req,res)=>{
 })
 
 //Update Product for Admin Panel
-app.post('/product/update/:id',async(req,res)=>{
+app.put('/product/update/:id',async(req,res)=>{
     const id = req.params.id;
     const UpdateProduct = await Product.findByIdAndUpdate(id,req.body,{new:true});
     if(UpdateProduct){
@@ -142,17 +143,21 @@ app.post('/product/update/:id',async(req,res)=>{
 })
 
 //Delete Product for Admin Panel
-app.post('/product/delete/:id',async(req,res)=>{
+app.delete('/product/delete/:id',async(req,res)=>{
     const id = req.params.id;
     const DelProduct = await Product.findByIdAndRemove(id);
     if(DelProduct){
-        res.send(`${DelProduct} deleted Successfuly`)
+       return res.send(`${DelProduct} deleted Successfuly`)
     }else{
-        res.send(err);
+        return res.send(err);
     }
 })
 
 
+//Amin
+app.get('/admin',(req,res)=>{
+    res.redirect('http://localhost:3000/products');
+})
 
 
 app.listen(PORT, ()=>{

@@ -7,6 +7,7 @@ import Navbar from './Navbar';
 import  NotFound from './components/pages/NotFound';
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import AddProduct from './products/AddProduct';
+import EditProduct from './products/EditProduct';
 
 const App = () => {
   return (
@@ -17,6 +18,7 @@ const App = () => {
     <Route exact path='/' component={Home} />
     <Route exact path='/products' component={Product} />
     <Route exact path='/products/add' component={AddProduct} />
+    <Route exact path='/products/edit/:id' component={EditProduct}/>
     <Route exact path='/users' component={Users} />
     <Route path='*' component={NotFound}/>
     </Switch>

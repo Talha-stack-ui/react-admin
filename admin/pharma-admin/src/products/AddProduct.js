@@ -9,6 +9,7 @@ const AddProduct = () => {
     const [image, setImage] = useState([]);
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
+    const [price, setPrice] = useState('');
 
 
     //function for storing files/images 
@@ -30,11 +31,12 @@ const AddProduct = () => {
         formData.append('image', image)
         formData.append('title', title);
         formData.append('description', description);
+        formData.append('price', price);
+
 
         await axios.post("http://localhost:800/productAdd", formData) //to post formdata 
         history.push('/products'); //to redirect to products page
     }
-
 
 
 
@@ -50,15 +52,18 @@ const AddProduct = () => {
             <form onSubmit={e => onSubmit(e)}  >
                 <div className="form-group">
                     <label htmlFor="name">Name</label>
-                    <input type="text" className="form-control" name="name" value={name} onChange={e => setName(e.target.value)} placeholder="Enter Name" />
+                    <input type="text" className="form-control" name="name" value={name} onChange={e => setName(e.target.value)} placeholder="Enter Name" required />
+                    <label htmlFor="image" className="text-danger"><small>*Image once upoaded cannot be updated</small></label>
                     <input type="file" className="form-control" name="image" value={image[0]} onChange={imgFunc} />
                     <label htmlFor="title">Title</label>
-                    <input type="text" className="form-control" name="title" value={title} onChange={e => setTitle(e.target.value)} placeholder="Enter Title" />
+                    <input type="text" className="form-control" name="title" value={title} onChange={e => setTitle(e.target.value)} placeholder="Enter Title" required/>
                     <label htmlFor="description">Description</label>
-                    <input type="text" className="form-control" name="description" value={description} onChange={e => setDescription(e.target.value)} placeholder="Enter Description" />
+                    <input type="text" className="form-control" name="description" value={description} onChange={e => setDescription(e.target.value)} placeholder="Enter Description" required/>
+                    <label htmlFor="description">Price</label>
+                    <input type="text" className="form-control" name="price" value={price} onChange={e => setPrice(e.target.value)} placeholder="Enter Price" required/>
                 </div>
 
-                <button type="submit" className="btn btn-primary">Add Product</button>
+                <button type="submit" className="btn btn-primary mt-3">Add Product</button>
             </form>
         </div>
     )
